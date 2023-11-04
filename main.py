@@ -9,14 +9,11 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from forms import CreatePostForm, RegisterForm, LogInForm, CommentForm
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.getenv("secret_key")
+app.config["SECRET_KEY"] = os.environ.get("secret_key")
 
 
 ckeditor = CKEditor()
@@ -25,7 +22,7 @@ ckeditor.init_app(app)
 bootstrap5 = Bootstrap5()
 bootstrap5.init_app(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DB_URI", "sqlite:///C:/Users/imper/Blog/post.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URI", "sqlite:///C:/Users/imper/Blog/post.db")
 db = SQLAlchemy()
 db.init_app(app)
 
